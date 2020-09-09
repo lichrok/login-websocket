@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import { Grid, Paper, Box, Button } from '@material-ui/core';
 import * as actions from '../store/actions/timer';
 import * as selectors from '../store/selectors/timer';
 import { logout } from '../store/actions/user';
@@ -23,10 +24,22 @@ export const TimerContainer = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <Timer time={time} status={status} />
-      <button onClick={handleLogout}>Log out</button>
-    </div>
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      justify="center"
+      style={{ minHeight: '100vh' }}
+    >
+      <Paper elevation={3}>
+        <Box p={2}>
+          <Timer time={time} status={status} />
+          <Box mt={2} textAlign="right">
+            <Button onClick={handleLogout}>Log out</Button>
+          </Box>
+        </Box>
+      </Paper>
+    </Grid>
   );
 }
 

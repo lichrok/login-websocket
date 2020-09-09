@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Formik } from "formik";
 import * as yup from 'yup';
+import { TextField, Button, CircularProgress, Box } from '@material-ui/core';
 import { LoginType } from '../../core/types/IUser';
 
 const schema = yup.object({
@@ -34,31 +35,37 @@ export const LoginForm: FC<LoginType> = ({
         }) => (
             <form onSubmit={handleSubmit}>
               <div>
-                <input
-                  type="text"
+                <TextField
+                  label="Username"
                   name="username"
                   value={values.username}
                   onChange={handleChange}
+                  error={!!errors.username}
+                  helperText={errors.username}
                 />
-                <p>{errors.username}</p>
               </div>
               <div>
-                <input
+                <TextField
                   type="password"
+                  label="Password"
                   name="password"
                   value={values.password}
                   onChange={handleChange}
+                  error={!!errors.password}
+                  helperText={errors.password}
                 />
-                <p>{errors.password}</p>
               </div>
-              <div>
-                <button type="submit" disabled={loading || !isValid || !dirty}>
-                  {loading && (<span>loading...</span>)}
+              <Box mt={2} textAlign="right">
+                <Button
+                  type="submit"
+                  disabled={loading || !isValid}
+                >
+                  {loading && (<CircularProgress />)}
                   sign in
-                </button>
-              </div>
+                </Button>
+              </Box>
               {error && (
-                <div>{error}</div>
+                <Box color="action">{error}</Box>
               )}
             </form>
           )}
