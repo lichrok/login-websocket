@@ -5,7 +5,7 @@ import { LoginType } from '../../core/types/IUser';
 
 const schema = yup.object({
   username: yup.string().required(),
-  paasword: yup.string().required()
+  password: yup.string().required()
 });
 
 export const LoginForm: FC<LoginType> = ({
@@ -15,12 +15,14 @@ export const LoginForm: FC<LoginType> = ({
 }) => (
     <div>
       <Formik
-        validationSchema={schema}
-        onSubmit={(values) => { login(values) }}
+        onSubmit={(values) => {
+          login(values)
+        }}
         initialValues={{
           username: '',
           password: ''
         }}
+        validationSchema={schema}
       >
         {({
           handleSubmit,
@@ -28,6 +30,7 @@ export const LoginForm: FC<LoginType> = ({
           values,
           errors,
           isValid,
+          dirty
         }) => (
             <form onSubmit={handleSubmit}>
               <div>
@@ -37,6 +40,7 @@ export const LoginForm: FC<LoginType> = ({
                   value={values.username}
                   onChange={handleChange}
                 />
+                <p>{errors.username}</p>
               </div>
               <div>
                 <input
@@ -45,9 +49,10 @@ export const LoginForm: FC<LoginType> = ({
                   value={values.password}
                   onChange={handleChange}
                 />
+                <p>{errors.password}</p>
               </div>
               <div>
-                <button type="submit" disabled={loading || !isValid}>
+                <button type="submit" disabled={loading || !isValid || !dirty}>
                   {loading && (<span>loading...</span>)}
                   sign in
                 </button>
