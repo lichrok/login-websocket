@@ -1,15 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Router, Switch } from 'react-router-dom';
 import { LoginPage } from './pages/Login';
 import { TimerPage } from './pages/Timer';
+import { createBrowserHistory } from 'history';
+
+export const history = createBrowserHistory();
 
 function App() {
   return (
-    <Router>
+    <Router history={history}>
       <Switch>
         <Route path="/login" component={LoginPage} />
         <Route path="/" exact component={TimerPage} />
-        {/* <Redirect to="/" /> */}
       </Switch>
     </Router>
   );
